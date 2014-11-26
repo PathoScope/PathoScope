@@ -10,17 +10,18 @@ Pathoscope 2.0 consists of four core and two optional analysis modules for seque
 
 ##### 1. Running
 
-Item 1 Prerequisite: Need to have python 2.7.3 or later version installed and add python to your PATH variable (Usually already done as part of python installation)
+1.1 Prerequisite: Need to have python 2.7.3 or later version installed and add python to your PATH variable (Usually already done as part of python installation)
     
-Item 2 Change directory to where you downloaded the code 
+1.2 Change directory to where you downloaded the code 
 
-Item 3 Simply run `python pathoscope/pathoscope.py -h` for top level usage information.
-Run "python pathoscope/pathoscope.py LIB -h" for detailed usage information to run patholib.
-Run "python pathoscope/pathoscope.py MAP -h" for detailed usage information to run pathomap.
-Run "python pathoscope/pathoscope.py ID -h" for detailed usage information to run pathoid.
-Run "python pathoscope/pathoscope.py REP -h" for detailed usage information to run pathoid.
+1.3 Simply run `python pathoscope/pathoscope.py -h` for top level usage information.
 
-Item 4 There are also some unit tests for testing the validity of the functions. 
+Run `python pathoscope/pathoscope.py LIB -h` for detailed usage information to run patholib.
+Run `python pathoscope/pathoscope.py MAP -h` for detailed usage information to run pathomap.
+Run `python pathoscope/pathoscope.py ID -h` for detailed usage information to run pathoid.
+Run `python pathoscope/pathoscope.py REP -h` for detailed usage information to run pathoreport.
+
+1.4 There are also some unit tests for testing the validity of the functions. 
 Change directory to "pathoscope/pathomap/bowtie2wrapper/unittest" and simply run "python testBowtie2Wrap.py".
 Change directory to "pathoscope/pathoid/unittest" and simply run "python testPathoID.py".
 
