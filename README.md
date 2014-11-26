@@ -89,13 +89,13 @@ You should have received a copy of the GNU General Public License along with thi
 
 5.1 Pathoscope is developed at the JohnsonLab in Boston University.
 
-W. Evan Johnson, Ph.D.
-Division of Computational Biomedicine
-Boston University School of Medicine
-72 E. Concord St., E-645
-Boston, MA 02118
+W. Evan Johnson, Ph.D.  
+Division of Computational Biomedicine  
+Boston University School of Medicine  
+72 E. Concord St., E-645  
+Boston, MA 02118  
 
 Developers:
 
-Solaiappan Manimaran
+Solaiappan Manimaran  
 Changjin Hong
