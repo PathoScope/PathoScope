@@ -35,7 +35,7 @@ Columns in the TSV file:
 
 1. Genome:
 
-   This is the name of the genome found in the alignment file.
+This is the name of the genome found in the alignment file.
 
 2. Initial Guess:
 
@@ -57,12 +57,15 @@ This represent the percentage of reads that are mapped to the genome in Column 1
 This represent the percentage of reads that are mapped to the genome in Column 1 after assigning each read uniquely to the genome with the highest score and after pathoscope reassignment is performed.
 
 7. Final Best Hit Read Numbers:
+
 This represent the number of best hit reads that are mapped to the genome in Column 1 (may include a fraction when a read is aligned to multiple top hit genomes with the same highest score) and after pathoscope reassignment is performed.
 
 8. Initial 50%-100% Hit:
+
 This represent the percentage of reads that are mapped to the genome in Column 1 with an alignment hit score of 50%-100% to this genome and before pathoscope reassignment is performed.
 
 9. Initial 1%-50% Hit:
+
 This represent the percentage of reads that are mapped to the genome in Column 1 with an alignment hit score of 1%-50% to this genome and before pathoscope reassignment is performed.
 
 10. Final 50%-100% Hit:
@@ -76,10 +79,7 @@ This represent the percentage of reads that are mapped to the genome in Column 1
 
 ####  3. License: GNU-GPL
 
-This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    any later version.
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
     
