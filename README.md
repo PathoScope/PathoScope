@@ -10,22 +10,22 @@ Pathoscope 2.0 consists of four core and two optional analysis modules for seque
 
 ##### 1. Running
 
-Item 1.1 Prerequisite: Need to have python 2.7.3 or later version installed and add python to your PATH variable (Usually already done as part of python installation)
+Item 1 Prerequisite: Need to have python 2.7.3 or later version installed and add python to your PATH variable (Usually already done as part of python installation)
     
-Item 1.2 Change directory to where you downloaded the code 
+Item 2 Change directory to where you downloaded the code 
 
-Item 1.3 Simply run "python pathoscope/pathoscope.py -h" for top level usage information.
+Item 3 Simply run `python pathoscope/pathoscope.py -h` for top level usage information.
 Run "python pathoscope/pathoscope.py LIB -h" for detailed usage information to run patholib.
 Run "python pathoscope/pathoscope.py MAP -h" for detailed usage information to run pathomap.
 Run "python pathoscope/pathoscope.py ID -h" for detailed usage information to run pathoid.
 Run "python pathoscope/pathoscope.py REP -h" for detailed usage information to run pathoid.
 
-    1.4 There are also some unit tests for testing the validity of the functions. 
+Item 4 There are also some unit tests for testing the validity of the functions. 
 Change directory to "pathoscope/pathomap/bowtie2wrapper/unittest" and simply run "python testBowtie2Wrap.py".
 Change directory to "pathoscope/pathoid/unittest" and simply run "python testPathoID.py".
 
 
-# 2 Output TSV file format:
+#####  2 Output TSV file format:
 
 At the top of the file in the first row, there are two fields called "Total Number of Aligned Reads" and "Total Number of Mapped Genomes". They represent the total number of reads that are aligned and the total number of genomes to which those reads align from the given alignment file.
 
