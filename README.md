@@ -27,7 +27,7 @@ Pathoscope 2.0 consists of four core and two optional analysis modules for seque
 - Change directory to `pathoscope/pathoid/unittest` and simply run `python testPathoID.py`.
 
 
-####  2 Output TSV file format:
+####  2. Output TSV file format:
 
 At the top of the file in the first row, there are two fields called "Total Number of Aligned Reads" and "Total Number of Mapped Genomes". They represent the total number of reads that are aligned and the total number of genomes to which those reads align from the given alignment file.
 
@@ -78,3 +78,9 @@ Developers:
 
 Solaiappan Manimaran  
 Changjin Hong
+
+####  5. References
+
+1. Francis, Owen E., et al. "Pathoscope: Species identification and strain attribution with unassembled sequencing data." Genome research 23.10 (2013): 1721-1729. [PMID: 23843222](http://www.ncbi.nlm.nih.gov/pubmed/23843222)  
+2. Byrd, Allyson L., et al. "Clinical PathoScope: rapid alignment and filtration for accurate pathogen identification in clinical samples using unassembled sequencing data." BMC bioinformatics 15.1 (2014): 262. [PMID: 25091138](http://www.ncbi.nlm.nih.gov/pubmed/25091138)  
+3. Hong, Changjin, et al. "PathoScope 2.0: a complete computational framework for strain identification in environmental or clinical sequencing samples." Microbiome 2.1 (2014): 1-15.[PMID: 25225611](http://www.ncbi.nlm.nih.gov/pubmed/25225611)  
