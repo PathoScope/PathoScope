@@ -1,0 +1,35 @@
+# BLASTN 2.2.27+
+# Query: read1_34
+# Database: genomes_BLAST.db
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score
+# 2 hits found
+read1_34	genome4	100.00	25	0	0	1	25	1	25	4e-11	47.3
+read1_34	genome3	100.00	25	0	0	1	25	1	25	4e-11	47.3
+# BLASTN 2.2.27+
+# Query: read2_34
+# Database: genomes_BLAST.db
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score
+# 2 hits found
+read2_34	genome4	100.00	25	0	0	1	25	1	25	4e-11	47.3
+read2_34	genome3	100.00	25	0	0	1	25	1	25	4e-11	47.3
+# BLASTN 2.2.27+
+# Query: read3_4
+# Database: genomes_BLAST.db
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score
+# 1 hits found
+read3_4	genome4	100.00	25	0	0	1	25	76	100	4e-11	47.3
+# BLASTN 2.2.27+
+# Query: read4_12
+# Database: genomes_BLAST.db
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score
+# 2 hits found
+read4_12	genome2	100.00	25	0	0	1	25	51	75	4e-11	47.3
+read4_12	genome1	100.00	25	0	0	1	25	51	75	4e-11	47.3
+# BLASTN 2.2.27+
+# Query: read5_13
+# Database: genomes_BLAST.db
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score
+# 2 hits found
+read5_13	genome3	100.00	25	0	0	1	25	26	50	4e-11	47.3
+read5_13	genome1	100.00	25	0	0	1	25	26	50	4e-11	47.3
+# BLAST processed 5 queries

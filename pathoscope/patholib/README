@@ -1,0 +1,64 @@
+1)app_build_nt_tgt.py
+
+1.1) objective:
+When user only is interested in a certain set of genome sequences in any level in phylogeny tree, this app extracts to genome sequences from ncbi reference genome sequences in fasta fomrat (e.g., ftp://ftp.ncbi.nih.gov/blast/db/FASTA/nt.gz) and append taxonomy identification in front of sequence header.
+
+1.2) help
+./app_build_nt_tgt.py -h
+  
+usage: app_build_nt_tgt.py [-h] -g REFERENCE [-t TAXON_IDS] [--desc]
+                           [--subtax] [--online] [-m HOSTNAME] [-u USER]
+                           [-p PASSWD] -o OUTPREFIX [--version]
+
+selecting taxon level genome sequences
+
+optional arguments:
+  -h, --help    show this help message and exit
+  -g REFERENCE  specify reference genome(Download
+                ftp://ftp.ncbi.nih.gov/blast/db/FASTA/nt.gz)
+  -t TAXON_IDS  specify taxon ids of your interest with comma separated (if
+                you have multiple taxon ids). If you do not specify this
+                option, it will work on all entries in the reference file. For
+                taxonomy id lookup, refer to
+                http://www.ncbi.nlm.nih.gov/taxonomy
+  --desc        to keep an additional description in original fasta seq
+                header. Depending on NGS aligner, a long sequence header may
+                slow down its mapping process.
+  --subtax      to include all sub taxonomies under the query taxonomy id.
+                e.g., if you set -t 4751 --subtax, it will cover all sub
+                taxonomies under taxon id 4751 (fungi).
+  --online      to enable online searching in case you cannot find a correct
+                taxonomy id for a given gi. When there are many entries in nt
+                whose gi is invalid, this option may slow down an overall
+                process.
+  -m HOSTNAME   specify hostname running mysql if you want to use mysql
+                instead of hash method in mapping gi to taxonomy id
+  -u USER       user name to access mysql
+  -p PASSWD     provide password associate with user
+  -o OUTPREFIX  specify an output prefix to name your target database
+  --version     show program's version number and exit
+
+
+1.3) example
+Let $PATHO2 be your pathoscope2 base directory.
+
+1.3.1) objective: when you want to append a taxonomy id in front of sequence header for all entries, try
+
+$PATHO2/patholib/app_build_nt_tgt.py -g full_path/nt --desc -o nt
+
+1.3.2) objective: when you have a processed nt file (based on the result of 1.3.1) where a correct taxonomy id appends and you want to collect all mosquito genomes, try 
+
+$PATHO2/patholib/app_build_nt_tgt.py -g full_path/nt_ti_val.fa -t 7157 --sub --desc -o Culicidae
+Note that 'full_path/nt_ti_val.fa' is the result of 1.3.1
+
+1.3.3) objective: when you have a processed nt file (based on the result of 1.3.1) where a correct taxonomy id appends and you want to collect only a single genome, say, homo sapiens (taxon id: 9606),  try
+
+move the processed nt file in 1.3.1 to an appropriate directory
+$PATHO2/patholib/app_build_nt_tgt.py -g full_path/nt_ti_val.fa -t 9606 -o hspaiens
+
+1.3.4) objective: I have an original nt file and I want to directly build Protozoa database by skipping 1.3.1, try
+
+$PATHO2/patholib/app_build_nt_tgt.py -g full_path/nt -t 5758,5741,5794,35581,6029,5878,5738,5653,37104,6029,5794,554915 --desc --sub -o Protozoa
+
+
+2)app_gb2mysql.py

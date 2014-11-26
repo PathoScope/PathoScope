@@ -1,0 +1,42 @@
+## ex1.fa##
+2 unique reads to genome1 and three reads to genomes 1,2,3 
+Answer: all to genome1
+
+## ex2.fa ## 
+2 reads to 1,2; 2 reads to 1,3 ; 3 reads to 1,2,3 
+Answer: all to genome1
+
+## ex3.fa ## 
+3 reads to 1; 2 reads to 2; 3 reads to 1,2,3 
+Answer: 6 to genome1; 2 to genome2
+
+## ex4.fa ##
+2 reads to 3,4; 1 read to 4; 1 read 1,2; 1 read to 1,3 
+Answer: 3 reads to genome4; 2 reads to genome1
+
+
+### Gnumap alignment ###
+#alias gnumap="<gnumap_home>/gnumap/bin/gnumap-plain"
+
+gnumap -g genomes.fa -o ex1.g ex1.fa
+gnumap -g genomes.fa -o ex2.g ex2.fa
+gnumap -g genomes.fa -o ex3.g ex3.fa
+gnumap -g genomes.fa -o ex4.g ex4.fa
+
+### BLAST alignment ###
+#alias mkblstdb="<blast_home>/ncbi-blast-2.2.27+/bin/makeblastdb" 
+#alias blast="<blast_home>/ncbi-blast-2.2.27+/bin/blastn" 
+
+mkblstdb -in genomes.fa -out genomes_BLAST.db -dbtype nucl
+blast -outfmt 7 -word_size 10 -evalue 10e-10 -db genomes_BLAST.db -query ex1.fa -out ex1.bl8
+blast -outfmt 7 -word_size 10 -evalue 10e-10 -db genomes_BLAST.db -query ex2.fa -out ex2.bl8
+blast -outfmt 7 -word_size 10 -evalue 10e-10 -db genomes_BLAST.db -query ex3.fa -out ex3.bl8
+blast -outfmt 7 -word_size 10 -evalue 10e-10 -db genomes_BLAST.db -query ex4.fa -out ex4.bl8
+
+### BOWTIE2 alignment ###
+
+bowtie2-build genomes.fa genomes_bowtie2
+bowtie2 --score-min L,0,-0.1 -k 4 -f -x genomes_bowtie2 -U ex1.fa -S ex1.sam
+bowtie2 --score-min L,0,-0.1 -k 4 -f -x genomes_bowtie2 -U ex2.fa -S ex2.sam
+bowtie2 --score-min L,0,-0.1 -k 4 -f -x genomes_bowtie2 -U ex3.fa -S ex3.sam
+bowtie2 --score-min L,0,-0.1 -k 4 -f -x genomes_bowtie2 -U ex4.fa -S ex4.sam
