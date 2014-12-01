@@ -35,26 +35,26 @@ Columns in the TSV file:
 
 1. **Genome:**  
 This is the name of the genome found in the alignment file.
-2. **Initial Guess:**  
-This represent the percentage of reads that are mapped to the genome in Column 1 (reads aligning to multiple genomes are assigned proportionally) before pathoscope reassignment is performed.
-3. **Initial Best Hit:**  
-This represent the percentage of reads that are mapped to the genome in Column 1 after assigning each read uniquely to the genome with the highest score and before pathoscope reassignment is performed.
-4. **Initial Best Hit Read Numbers:**  
-This represent the number of best hit reads that are mapped to the genome in Column 1 (may include a fraction when a read is aligned to multiple top hit genomes with the same highest score) and before pathoscope reassignment is performed.
-5. **Final Guess:**  
+2. **Final Guess:**  
 This represent the percentage of reads that are mapped to the genome in Column 1 (reads aligning to multiple genomes are assigned proportionally) after pathoscope reassignment is performed.
-6. **Final Best Hit:**  
+3. **Final Best Hit:**  
 This represent the percentage of reads that are mapped to the genome in Column 1 after assigning each read uniquely to the genome with the highest score and after pathoscope reassignment is performed.
-7. **Final Best Hit Read Numbers:**  
+4. **Final Best Hit Read Numbers:**  
 This represent the number of best hit reads that are mapped to the genome in Column 1 (may include a fraction when a read is aligned to multiple top hit genomes with the same highest score) and after pathoscope reassignment is performed.
-8. **Initial 50%-100% Hit:**  
-This represent the percentage of reads that are mapped to the genome in Column 1 with an alignment hit score of 50%-100% to this genome and before pathoscope reassignment is performed.
-9. **Initial 1%-50% Hit:**  
-This represent the percentage of reads that are mapped to the genome in Column 1 with an alignment hit score of 1%-50% to this genome and before pathoscope reassignment is performed.
-10. **Final 50%-100% Hit:**  
+5. **Final high confidence hits:**  
 This represent the percentage of reads that are mapped to the genome in Column 1 with an alignment hit score of 50%-100% to this genome and after pathoscope reassignment is performed.
-11. **Final 1%-50% Hit:**  
+6. **Final low confidence hits:**  
 This represent the percentage of reads that are mapped to the genome in Column 1 with an alignment hit score of 1%-50% to this genome and after pathoscope reassignment is performed.
+7. **Initial Guess:**  
+This represent the percentage of reads that are mapped to the genome in Column 1 (reads aligning to multiple genomes are assigned proportionally) before pathoscope reassignment is performed.
+8. **Initial Best Hit:**  
+This represent the percentage of reads that are mapped to the genome in Column 1 after assigning each read uniquely to the genome with the highest score and before pathoscope reassignment is performed.
+9. **Initial Best Hit Read Numbers:**  
+This represent the number of best hit reads that are mapped to the genome in Column 1 (may include a fraction when a read is aligned to multiple top hit genomes with the same highest score) and before pathoscope reassignment is performed.
+10. **Initial high confidence hits:**  
+This represent the percentage of reads that are mapped to the genome in Column 1 with an alignment hit score of 50%-100% to this genome and before pathoscope reassignment is performed.
+11. **Initial low confidence hits:**  
+This represent the percentage of reads that are mapped to the genome in Column 1 with an alignment hit score of 1%-50% to this genome and before pathoscope reassignment is performed.
 
 ####  3. License: GNU-GPL
 
