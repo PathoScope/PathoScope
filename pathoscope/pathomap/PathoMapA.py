@@ -160,6 +160,7 @@ def copyPathoMapOptions(pathoMapOptions):
 	procPathoMapOptions.verbose = pathoMapOptions.verbose
 	procPathoMapOptions.outDir = pathoMapOptions.outDir
 	procPathoMapOptions.indexDir = pathoMapOptions.indexDir
+	procPathoMapOptions.numThreads = pathoMapOptions.numThreads
 	procPathoMapOptions.outAlignFile = pathoMapOptions.outAlignFile
 	procPathoMapOptions.inReadFile = pathoMapOptions.inReadFile
 	procPathoMapOptions.inReadFilePair1 = pathoMapOptions.inReadFilePair1

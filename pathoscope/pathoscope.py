@@ -140,6 +140,8 @@ parser_c.add_argument('--outMatrix', action='store_true', default=False, dest='i
 	help='Output alignment matrix')
 parser_c.add_argument('--noUpdatedAlignFile', action='store_true', default=False, 
 	dest='id_noalign', help='Do not generate an updated alignment file')
+parser_c.add_argument('--noDisplayCutoff', action='store_true', default=False, 
+	dest='id_nocutoff', help='Do not cutoff display of genomes, even if it is insignificant')
 parser_c.add_argument('-scoreCutoff', action='store', default=0.01, type=float,
 	dest='id_score_cutoff', help='Score Cutoff')
 parser_c.add_argument('-emEpsilon', action='store', default=1e-7, type=float,
@@ -181,6 +183,30 @@ parser_d.add_argument('--contig', action='store_true', default=False, dest='rep_
 	help='Generate Contig Information (Needs samtools package installed)')
 parser_d.add_argument('-samfile', action='store', dest='rep_ali_file', required=True,
 					help='SAM Alignment file path')
+parser_d.add_argument('--noDisplayCutoff', action='store_true', default=False, 
+	dest='rep_nocutoff', help='Do not cutoff display of genomes, even if it is insignificant')
+
+parser_e = subparsers.add_parser('QC', help="PathoQC: Quality control program for high throughput sequencing reads")
+parser_e.add_argument('-1', action='store', dest='qc_read1', required=True, default='', help='1st pair of read in PER or SER')
+parser_e.add_argument('-2', action='store', dest='qc_read2', required=False, default='', help='2nd pair of read in PER')
+parser_e.add_argument('-r', action='store', dest='qc_readL', required=False, default=0, type = int, help='let us know a mean read length (0:ignore. [1]:I want to know the range of read length after trimming, i:user_specified_mean_read_length)')
+parser_e.add_argument('-t', action='store', dest='qc_phred_offset', required=False, default=33, type = int, help='specify a phred offset used in encoding base quality(0:not sure?, [33]:phred+33, 64:phred+64)')
+parser_e.add_argument('-o', action='store', dest='qc_outdir', required=False, default='', help='specify output directory in full path')
+parser_e.add_argument('-s', action='store', dest='qc_sequencer', required=False, default='Illumina', help='tell us which sequencer generates the reads ([Illumina], PacBio, Roche454, IonTorrent)')
+parser_e.add_argument('-m', action='store', dest='qc_len_cutoff', required=False, type=int, default=35, help='specify the min read length cutoff[35]')
+parser_e.add_argument('-a', action='store', dest='qc_adaptor', required=False, default='N', help='specify an adaptor (Y:have pathoQC detect it, [N]:ignore, ACGT:adaptor)')
+parser_e.add_argument('-a2', action='store', dest='qc_adaptor2', required=False, default='N', help='specify a second adaptor if it is different from the first one (Y:have pathoQC detect it, [N]:ignore, ACGT:adaptor)')
+#parser_e.add_argument('-k', action='store', dest='qc_primer', required=False, default='N', help='specify a primer')
+parser_e.add_argument('-q', action='store', dest='qc_qual_cutoff', required=False, type=int, default=0, help='specify a cutoff of base quality value to trim at the end of reads([0]:ignore, 1:let pathoQC take care of it, i:user_specified_cutoff_value)')
+parser_e.add_argument('-R', action='store', dest='qc_lower454', required=False, type=int, default=0, help='set to 1 if you want to mask all lower case bases that may correspond to sequence tag or adaptor in Roche454 or IonTorrent')
+parser_e.add_argument('-e', action='store', dest='qc_coff_entropy', required=False, type=int, default=30, help='specify a cutoff of entropy of low sequence complexity to filter out[0..100],default:30, set 0 to disable')
+parser_e.add_argument('-d', action='store', dest='qc_derep', required=False, type=int, default=1, help='filtering duplicates: [1] (exact duplicate), 2 (5\' duplicate), 3 (3\' duplicate), 4 (reverse complement exact duplicate), 5 (reverse complement 5\'/3\' duplicate)');
+parser_e.add_argument('-g', action='store', dest='qc_add_valid_single', required=False, type=int, default=0, help='Set to 1 if you want to add a valid single read into a reduced valid PER set. Note that this option works only with PER')
+parser_e.add_argument('--no_prinseq', action='store_const', dest='qc_on_prinseq', required=False, const=False, default=True, help='to force to skip prinseq module')
+
+parser_e.add_argument('-p', action='store', dest='qc_num_threads', required=False, type=int, default=1, help='specify a total number of cpus to use[1]')
+parser_e.add_argument('--debug', action='store_const', dest='qc_debugF', required=False, const=True, default=False, help='working on debug mode')
+parser_e.add_argument('--version', action='version', version='PathoQC 1.0')
 
 # parse some argument lists
 inputArgs = parser.parse_args()
@@ -248,6 +274,7 @@ if (inputArgs.subcommand=='ID'):
 	pathoIdOptions.piPrior = inputArgs.id_piPrior
 	pathoIdOptions.thetaPrior = inputArgs.id_thetaPrior
 	pathoIdOptions.noalign = inputArgs.id_noalign
+	pathoIdOptions.noCutOff = inputArgs.id_nocutoff
 	PathoID.pathoscope_reassign(pathoIdOptions)
 
 if (inputArgs.subcommand=='REP'):
@@ -256,10 +283,25 @@ if (inputArgs.subcommand=='REP'):
 	pathoReportOptions.contigFlag = inputArgs.rep_contig_flag
 	pathoReportOptions.outDir = inputArgs.rep_outdir
 	pathoReportOptions.samtoolsHome = inputArgs.rep_samtoolshome
+	pathoReportOptions.noCutOff = inputArgs.rep_nocutoff
 	mysqlConf=(inputArgs.rep_dbhost,inputArgs.rep_dbport,inputArgs.rep_dbuser,
 		inputArgs.rep_dbpasswd,inputArgs.rep_db)
 	pathoReportOptions.mysqlConf = mysqlConf
 	PathoReportA.processPathoReport(pathoReportOptions)
+
+if (inputArgs.subcommand=='QC'):
+	qcargs = sys.argv[2:]
+	pathoqcdir = pathoscopedir + os.path.sep + 'pathoscope' + os.path.sep + 'pathoqc'
+	pathoqcfile = pathoqcdir + os.path.sep + 'pathoqc.py'
+	if os.path.exists(pathoqcfile):
+		cmd = sys.executable
+		cmd += " " + pathoqcfile + " "
+		cmd += " ".join(qcargs)
+		print(cmd)
+		os.system(cmd)
+	else:
+		print("PathoQC (" + pathoqcfile + ") not found. Please download pathoqc_vXXX.tar.gz and "
+		"install it ("+pathoqcdir+") from http://sourceforge.net/projects/pathoscope/")
 
 elapsed = time() - start;
 if inputArgs.verbose:

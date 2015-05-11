@@ -37,6 +37,7 @@ class PathoReportOptions:
 	samFile = None
 	mysqlConf = None
 	minContigLen = MIN_CONTIG_LEN
+	noCutOff = False
 	def __init__(self, samFile):
 		self.samFile = samFile
 
@@ -74,7 +75,8 @@ def processPathoReport(pathoReportOptions):
 		nG = len(h_refRead)
 		(_, _, _, _, _, _, _, _, _, _, _) = write_tsv_report(outTsv, nR, nG, 
 			pi, genomes, initPi, bestHitInitial, bestHitInitialReads, bestHitFinal, 
-			bestHitFinalReads, level1Initial, level2Initial, level1Final, level2Final, header)
+			bestHitFinalReads, level1Initial, level2Initial, level1Final, level2Final, header,
+			pathoReportOptions.noCutOff)
 		
 		if pathoReportOptions.contigFlag:
 			bamFile = samUtils.sam2bam(pathoReportOptions.samFile, pathoReportOptions.samtoolsHome)
@@ -317,14 +319,14 @@ def computeBestHit(U, NU, genomes, read):
 # Function to create the tsv file report
 def write_tsv_report(finalReport, nR, nG, pi, genomes, initPi, bestHitInitial, bestHitInitialReads, 
 		bestHitFinal, bestHitFinalReads, level1Initial, level2Initial, level1Final, level2Final,
-		header):
+		header, noCutOff):
 	with open(finalReport, 'wb') as oFp:
 		tmp = zip(pi,genomes, initPi, bestHitInitial, bestHitInitialReads, bestHitFinal, 
 			bestHitFinalReads, level1Initial, level2Initial, level1Final, level2Final)
 		tmp = sorted(tmp,reverse=True) # Sorting based on Final Guess
 		x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11 = zip(*tmp)
 		for i in range(len(x10)):
-			if (x1[i] < 0.01 and x10[i] <= 0 and x11[i] <= 0):
+			if (not(noCutOff) and x1[i] < 0.01 and x10[i] <= 0 and x11[i] <= 0):
 				break
 			if i == (len(x10)-1):
 				i += 1

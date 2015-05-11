@@ -20,7 +20,7 @@
 
 #########################################################################################$
 # Which def can be written here?
-# anything using mysql connection to pathoDB. But some batch job or application is not welecome to be here. For example two applications using mysql can be found in patholib/pathoLib.py. Here place is good for atomic-level module
+# anything using mysql connection to pathoDB. But some batch job or application is not welcome to be here. For example two applications using mysql can be found in patholib/pathoLib.py. This place is good for atomic-level module.
 #########################################################################################$
 
 import os, pickle
@@ -35,6 +35,8 @@ objective: This function retrieves the organism name for the given ti(taxon id) 
 '''
 def findOrganismLineage(con, ti):
 	
+	organism = ''
+	lineage = ''
 	with con:
 		cur = con.cursor()
 		mysql_sel_cmd = 'select organism, lineage from cj_taxonT where taxon = %s' % ti

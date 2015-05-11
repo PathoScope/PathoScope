@@ -38,6 +38,7 @@ class PathoIdOptions:
 	thetaPrior = 0
 	out_matrix_flag = True
 	noalign = False
+	noCutOff = False
 	def __init__(self, ali_file):
 		self.ali_file = ali_file
 
@@ -150,6 +151,7 @@ def pathoscope_reassign(pathoIdOptions):
 	upalign = not(pathoIdOptions.noalign)
 	piPrior = pathoIdOptions.piPrior
 	thetaPrior = pathoIdOptions.thetaPrior
+	noCutOff = pathoIdOptions.noCutOff
 	
 	if float(os.stat(ali_file).st_size)<1.0:
 		print 'the alignment file [%s] is empty.' % ali_file
@@ -221,7 +223,7 @@ def pathoscope_reassign(pathoIdOptions):
 	(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11) = PathoReportA.write_tsv_report(
 		finalReport, nR, nG, pi, genomes, initPi, bestHitInitial, bestHitInitialReads, 
 		bestHitFinal, bestHitFinalReads, level1Initial, level2Initial, level1Final, 
-		level2Final, header)
+		level2Final, header, noCutOff)
 	
 	reAlignfile = ali_file
 	if upalign:
