@@ -1,0 +1,13 @@
+mysql -u root -p
+<Enter root password>
+
+create DATABASE pathodb;
+create user pathoscope;
+grant all privileges on pathodb.* to pathoscope@"localhost" identified by 'johnsonlab';
+flush privileges;
+exit;
+
+mysql -u pathoscope -p pathodb < pathodb.sql
+<Enter the following password when asked>
+johnsonlab
+
