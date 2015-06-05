@@ -14,18 +14,26 @@ Pathoscope 2.0 consists of four core and two optional analysis modules for seque
     
 1.2 Change directory to where you downloaded the code 
 
-1.3 Simply run `python pathoscope/pathoscope.py -h` for top level usage information.
+1.3 Simply run `python setup.py install` if you want to install globally or
+simply run `python setup.py install --user` if you want to install for the local user.
 
-- Run `python pathoscope/pathoscope.py LIB -h` for detailed usage information to run patholib.
-- Run `python pathoscope/pathoscope.py MAP -h` for detailed usage information to run pathomap.
-- Run `python pathoscope/pathoscope.py ID -h` for detailed usage information to run pathoid.
-- Run `python pathoscope/pathoscope.py REP -h` for detailed usage information to run pathoreport.
+1.4 Simply run `pathoscope -h` after installation as above or  
+`python pathoscope/pathoscope2.py -h` for top level usage information.
 
-1.4 There are also some unit tests for testing the validity of the functions. 
+- Run `pathoscope LIB -h` for detailed usage information to run patholib.
+- Run `pathoscope MAP -h` for detailed usage information to run pathomap.
+- Run `pathoscope ID -h` for detailed usage information to run pathoid.
+- Run `pathoscope REP -h` for detailed usage information to run pathoreport.  
+If you have installed the PathoQC submodule:
+- Run `pathoscope QC -h` for detailed usage information to run pathoqc.
+
+1.5 There are also some unit tests for testing the validity of the functions. 
 
 - Change directory to `pathoscope/pathomap/bowtie2wrapper/unittest` and simply run `python testBowtie2Wrap.py`.
 - Change directory to `pathoscope/pathoid/unittest` and simply run `python testPathoID.py`.
 
+1.6 Optional: Download PathoQC (pathoqc_vXXX.tar.gz) from <http://sourceforge.net/projects/pathoscope/>
+    Install "pathoqc" sub-directory under "pathoscope" directory.
 
 ####  2. Output TSV file format
 
@@ -81,6 +89,7 @@ Changjin Hong
 
 ####  5. References
 
-1. Francis, Owen E., et al. "Pathoscope: Species identification and strain attribution with unassembled sequencing data." Genome research 23.10 (2013): 1721-1729. [PMID: 23843222](http://www.ncbi.nlm.nih.gov/pubmed/23843222)  
-2. Byrd, Allyson L., et al. "Clinical PathoScope: rapid alignment and filtration for accurate pathogen identification in clinical samples using unassembled sequencing data." BMC bioinformatics 15.1 (2014): 262. [PMID: 25091138](http://www.ncbi.nlm.nih.gov/pubmed/25091138)  
-3. Hong, Changjin, et al. "PathoScope 2.0: a complete computational framework for strain identification in environmental or clinical sequencing samples." Microbiome 2.1 (2014): 1-15.[PMID: 25225611](http://www.ncbi.nlm.nih.gov/pubmed/25225611)  
+1. Owen E. Francis, Matthew Bendall, Solaiappan Manimaran, Changjin Hong, Nathan L. Clement, Eduardo Castro-Nallar, Quinn Snell, G. Bruce Schaalje, Mark J. Clement, Keith A. Crandall and W. Evan Johnson "Pathoscope: Species identification and strain attribution with unassembled sequencing data." Genome research 23.10 (2013): 1721-1729. [PMID: 23843222](http://www.ncbi.nlm.nih.gov/pubmed/23843222)  
+2. Changjin Hong, Solaiappan Manimaran, Ying Shen, Joseph F Perez-Rogers, Allyson L Byrd, Eduardo Castro-Nallar, Keith A Crandall and William Evan Johnson "PathoScope 2.0: a complete computational framework for strain identification in environmental or clinical sequencing samples." Microbiome 2.1 (2014): 1-15.[PMID: 25225611](http://www.ncbi.nlm.nih.gov/pubmed/25225611)  
+3. Allyson L Byrd, Joseph F Perez-Rogers, Solaiappan Manimaran, Eduardo Castro-Nallar, Ian Toma, Tim McCaffrey, Marc Siegel, Gary Benson, Keith A Crandall and William Evan Johnson "Clinical PathoScope: rapid alignment and filtration for accurate pathogen identification in clinical samples using unassembled sequencing data." BMC bioinformatics 15.1 (2014): 262. [PMID: 25091138](http://www.ncbi.nlm.nih.gov/pubmed/25091138)  
+4. Changjin Hong, Solaiappan Manimaran and William Evan Johnson "PathoQC: Computationally Efficient Read Preprocessing and Quality Control for High-Throughput Sequencing Data Sets", Cancer Informatics 2014:Suppl. 1 167-176. [PMID: 25983538](http://www.ncbi.nlm.nih.gov/pubmed/25983538)  

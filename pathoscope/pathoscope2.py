@@ -208,101 +208,104 @@ parser_e.add_argument('-p', action='store', dest='qc_num_threads', required=Fals
 parser_e.add_argument('--debug', action='store_const', dest='qc_debugF', required=False, const=True, default=False, help='working on debug mode')
 parser_e.add_argument('--version', action='version', version='PathoQC 1.0')
 
-# parse some argument lists
-inputArgs = parser.parse_args()
+def main():
+	# parse some argument lists
+	inputArgs = parser.parse_args()
+	
+	#### PathoID modules ####
+	
+	start = time();
+	
+	if (inputArgs.subcommand=='LIB'):
+		################################################$
+		#append taxon id in the front of sequence header
+		################################################$
+		NAs = 'X'
+		if inputArgs.lib_dbuser!=NAs and inputArgs.lib_dbpasswd==NAs:
+			print 'if you want to use mysql, make sure that you install pathoDB and '
+			'also specify the corresponding mysql password correctly '
+			'(Ask your mysql admin to access the database).'
+		MysqlConf=(inputArgs.lib_dbhost,inputArgs.lib_dbport,inputArgs.lib_dbuser,inputArgs.lib_dbpasswd,inputArgs.lib_db)
+		taxon_ids=pathoLib.parse_input_app_build_nt_tgt(inputArgs.lib_taxon_ids)
+		exclude_taxon_ids=pathoLib.parse_input_app_build_nt_tgt(inputArgs.lib_exclude_taxon_ids)
+		(ncbiNt_ti,ncbiNt_invalid) = pathoLib.append_ti_into_fasta_app(inputArgs.lib_reference,
+			taxon_ids, exclude_taxon_ids, inputArgs.lib_subtax,MysqlConf, 
+			not(inputArgs.lib_nodesc), inputArgs.lib_online_search, inputArgs.lib_outprefix, 
+			inputArgs.lib_outdir)
+	
+	if (inputArgs.subcommand=='MAP'):
+		pathoMapOptions = PathoMapA.PathoMapOptions()
+		pathoMapOptions.verbose = inputArgs.verbose
+		pathoMapOptions.outDir = inputArgs.map_outdir
+		pathoMapOptions.indexDir = inputArgs.map_indexdir
+		pathoMapOptions.outAlignFile = inputArgs.map_outalign
+		pathoMapOptions.inReadFile = inputArgs.map_inputread
+		pathoMapOptions.inReadFilePair1 = inputArgs.map_inputread1
+		pathoMapOptions.inReadFilePair2 = inputArgs.map_inputread2
+		pathoMapOptions.targetAlignParameters = inputArgs.map_targetalignparams
+		pathoMapOptions.filterAlignParameters = inputArgs.map_filteralignparams
+		if (len(inputArgs.map_targetref)>0):
+			pathoMapOptions.targetRefFiles = inputArgs.map_targetref.split(",")
+		if (len(inputArgs.map_filterref)>0):
+			pathoMapOptions.filterRefFiles = inputArgs.map_filterref.split(",")
+		if (len(inputArgs.map_targetindex)>0):
+			pathoMapOptions.targetIndexPrefixes = inputArgs.map_targetindex.split(",")
+		if (len(inputArgs.map_filterindex)>0):
+			pathoMapOptions.filterIndexPrefixes = inputArgs.map_filterindex.split(",")
+		if (len(inputArgs.map_targetalign)>0):
+			pathoMapOptions.targetAlignFiles = inputArgs.map_targetalign.split(",")
+		if (len(inputArgs.map_filteralign)>0):
+			pathoMapOptions.filterAlignFiles = inputArgs.map_filteralign.split(",")
+		pathoMapOptions.btHome = inputArgs.map_bthome
+		pathoMapOptions.numThreads = inputArgs.map_numthreads
+		pathoMapOptions.exp_tag = inputArgs.map_exp_tag + "-"
+		PathoMapA.processPathoMap(pathoMapOptions)
+	
+	if (inputArgs.subcommand=='ID'):
+		pathoIdOptions = PathoID.PathoIdOptions(inputArgs.id_ali_file)
+		pathoIdOptions.ali_format = inputArgs.id_ali_format
+		pathoIdOptions.verbose = inputArgs.verbose
+		pathoIdOptions.out_matrix_flag = inputArgs.id_out_matrix
+		pathoIdOptions.score_cutoff = inputArgs.id_score_cutoff
+		pathoIdOptions.exp_tag = inputArgs.id_exp_tag
+		pathoIdOptions.outdir = inputArgs.id_outdir
+		pathoIdOptions.emEpsilon = inputArgs.id_emEpsilon
+		pathoIdOptions.maxIter = inputArgs.id_maxIter
+		pathoIdOptions.piPrior = inputArgs.id_piPrior
+		pathoIdOptions.thetaPrior = inputArgs.id_thetaPrior
+		pathoIdOptions.noalign = inputArgs.id_noalign
+		pathoIdOptions.noCutOff = inputArgs.id_nocutoff
+		PathoID.pathoscope_reassign(pathoIdOptions)
+	
+	if (inputArgs.subcommand=='REP'):
+		pathoReportOptions = PathoReportA.PathoReportOptions(inputArgs.rep_ali_file)
+		pathoReportOptions.verbose = inputArgs.verbose
+		pathoReportOptions.contigFlag = inputArgs.rep_contig_flag
+		pathoReportOptions.outDir = inputArgs.rep_outdir
+		pathoReportOptions.samtoolsHome = inputArgs.rep_samtoolshome
+		pathoReportOptions.noCutOff = inputArgs.rep_nocutoff
+		mysqlConf=(inputArgs.rep_dbhost,inputArgs.rep_dbport,inputArgs.rep_dbuser,
+			inputArgs.rep_dbpasswd,inputArgs.rep_db)
+		pathoReportOptions.mysqlConf = mysqlConf
+		PathoReportA.processPathoReport(pathoReportOptions)
+	
+	if (inputArgs.subcommand=='QC'):
+		qcargs = sys.argv[2:]
+		pathoqcdir = pathoscopedir + os.path.sep + 'pathoscope' + os.path.sep + 'pathoqc'
+		pathoqcfile = pathoqcdir + os.path.sep + 'pathoqc.py'
+		if os.path.exists(pathoqcfile):
+			cmd = sys.executable
+			cmd += " " + pathoqcfile + " "
+			cmd += " ".join(qcargs)
+			print(cmd)
+			os.system(cmd)
+		else:
+			print("PathoQC (" + pathoqcfile + ") not found. Please download pathoqc_vXXX.tar.gz and "
+			"install it ("+pathoqcdir+") from http://sourceforge.net/projects/pathoscope/")
+	
+	elapsed = time() - start;
+	if inputArgs.verbose:
+		print "Total Elapsed Time: %d" % (elapsed)
 
-
-#### PathoID modules ####
-
-start = time();
-
-if (inputArgs.subcommand=='LIB'):
-	################################################$
-	#append taxon id in the front of sequence header
-	################################################$
-	NAs = 'X'
-	if inputArgs.lib_dbuser!=NAs and inputArgs.lib_dbpasswd==NAs:
-		print 'if you want to use mysql, make sure that you install pathoDB and '
-		'also specify the corresponding mysql password correctly '
-		'(Ask your mysql admin to access the database).'
-	MysqlConf=(inputArgs.lib_dbhost,inputArgs.lib_dbport,inputArgs.lib_dbuser,inputArgs.lib_dbpasswd,inputArgs.lib_db)
-	taxon_ids=pathoLib.parse_input_app_build_nt_tgt(inputArgs.lib_taxon_ids)
-	exclude_taxon_ids=pathoLib.parse_input_app_build_nt_tgt(inputArgs.lib_exclude_taxon_ids)
-	(ncbiNt_ti,ncbiNt_invalid) = pathoLib.append_ti_into_fasta_app(inputArgs.lib_reference,
-		taxon_ids, exclude_taxon_ids, inputArgs.lib_subtax,MysqlConf, 
-		not(inputArgs.lib_nodesc), inputArgs.lib_online_search, inputArgs.lib_outprefix, 
-		inputArgs.lib_outdir)
-
-if (inputArgs.subcommand=='MAP'):
-	pathoMapOptions = PathoMapA.PathoMapOptions()
-	pathoMapOptions.verbose = inputArgs.verbose
-	pathoMapOptions.outDir = inputArgs.map_outdir
-	pathoMapOptions.indexDir = inputArgs.map_indexdir
-	pathoMapOptions.outAlignFile = inputArgs.map_outalign
-	pathoMapOptions.inReadFile = inputArgs.map_inputread
-	pathoMapOptions.inReadFilePair1 = inputArgs.map_inputread1
-	pathoMapOptions.inReadFilePair2 = inputArgs.map_inputread2
-	pathoMapOptions.targetAlignParameters = inputArgs.map_targetalignparams
-	pathoMapOptions.filterAlignParameters = inputArgs.map_filteralignparams
-	if (len(inputArgs.map_targetref)>0):
-		pathoMapOptions.targetRefFiles = inputArgs.map_targetref.split(",")
-	if (len(inputArgs.map_filterref)>0):
-		pathoMapOptions.filterRefFiles = inputArgs.map_filterref.split(",")
-	if (len(inputArgs.map_targetindex)>0):
-		pathoMapOptions.targetIndexPrefixes = inputArgs.map_targetindex.split(",")
-	if (len(inputArgs.map_filterindex)>0):
-		pathoMapOptions.filterIndexPrefixes = inputArgs.map_filterindex.split(",")
-	if (len(inputArgs.map_targetalign)>0):
-		pathoMapOptions.targetAlignFiles = inputArgs.map_targetalign.split(",")
-	if (len(inputArgs.map_filteralign)>0):
-		pathoMapOptions.filterAlignFiles = inputArgs.map_filteralign.split(",")
-	pathoMapOptions.btHome = inputArgs.map_bthome
-	pathoMapOptions.numThreads = inputArgs.map_numthreads
-	pathoMapOptions.exp_tag = inputArgs.map_exp_tag + "-"
-	PathoMapA.processPathoMap(pathoMapOptions)
-
-if (inputArgs.subcommand=='ID'):
-	pathoIdOptions = PathoID.PathoIdOptions(inputArgs.id_ali_file)
-	pathoIdOptions.ali_format = inputArgs.id_ali_format
-	pathoIdOptions.verbose = inputArgs.verbose
-	pathoIdOptions.out_matrix_flag = inputArgs.id_out_matrix
-	pathoIdOptions.score_cutoff = inputArgs.id_score_cutoff
-	pathoIdOptions.exp_tag = inputArgs.id_exp_tag
-	pathoIdOptions.outdir = inputArgs.id_outdir
-	pathoIdOptions.emEpsilon = inputArgs.id_emEpsilon
-	pathoIdOptions.maxIter = inputArgs.id_maxIter
-	pathoIdOptions.piPrior = inputArgs.id_piPrior
-	pathoIdOptions.thetaPrior = inputArgs.id_thetaPrior
-	pathoIdOptions.noalign = inputArgs.id_noalign
-	pathoIdOptions.noCutOff = inputArgs.id_nocutoff
-	PathoID.pathoscope_reassign(pathoIdOptions)
-
-if (inputArgs.subcommand=='REP'):
-	pathoReportOptions = PathoReportA.PathoReportOptions(inputArgs.rep_ali_file)
-	pathoReportOptions.verbose = inputArgs.verbose
-	pathoReportOptions.contigFlag = inputArgs.rep_contig_flag
-	pathoReportOptions.outDir = inputArgs.rep_outdir
-	pathoReportOptions.samtoolsHome = inputArgs.rep_samtoolshome
-	pathoReportOptions.noCutOff = inputArgs.rep_nocutoff
-	mysqlConf=(inputArgs.rep_dbhost,inputArgs.rep_dbport,inputArgs.rep_dbuser,
-		inputArgs.rep_dbpasswd,inputArgs.rep_db)
-	pathoReportOptions.mysqlConf = mysqlConf
-	PathoReportA.processPathoReport(pathoReportOptions)
-
-if (inputArgs.subcommand=='QC'):
-	qcargs = sys.argv[2:]
-	pathoqcdir = pathoscopedir + os.path.sep + 'pathoscope' + os.path.sep + 'pathoqc'
-	pathoqcfile = pathoqcdir + os.path.sep + 'pathoqc.py'
-	if os.path.exists(pathoqcfile):
-		cmd = sys.executable
-		cmd += " " + pathoqcfile + " "
-		cmd += " ".join(qcargs)
-		print(cmd)
-		os.system(cmd)
-	else:
-		print("PathoQC (" + pathoqcfile + ") not found. Please download pathoqc_vXXX.tar.gz and "
-		"install it ("+pathoqcdir+") from http://sourceforge.net/projects/pathoscope/")
-
-elapsed = time() - start;
-if inputArgs.verbose:
-	print "Total Elapsed Time: %d" % (elapsed)
+if __name__ == "__main__":
+	main()
