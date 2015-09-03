@@ -32,6 +32,8 @@ class Bowtie2Options:
 	btBin = "bowtie2"
 	btIndexer = "bowtie2-build"
 	pairedReadFlag = False
+	singleReadFlag = False
+	bothReadFlag = False
 	readFile = ""
 	readFilePair1 = ""
 	readFilePair2 = ""
@@ -56,13 +58,19 @@ def run_bowtie2(bowtie2Options):
 	if bowtie2Options.btHome is not None:
 		btBinPath = bowtie2Options.btHome + os.sep + bowtie2Options.btBin
 	outAlignFilePath = bowtie2Options.outDir + os.sep + bowtie2Options.outAlignFile
+	if bowtie2Options.bothReadFlag: # newly added
+		cmd = "%s -x %s -1 %s -2 %s -U %s -p %s %s -S %s" % (btBinPath,
+			bowtie2Options.btIndexPrefix, 
+			bowtie2Options.readFilePair1, bowtie2Options.readFilePair2, bowtie2Options.readFile,
+			bowtie2Options.numThreads, bowtie2Options.additionalOptions,
+			outAlignFilePath)
 	if bowtie2Options.pairedReadFlag:
 		cmd = "%s -x %s -1 %s -2 %s -p %s %s -S %s" % (btBinPath, 
 			bowtie2Options.btIndexPrefix, 
 			bowtie2Options.readFilePair1, bowtie2Options.readFilePair2,
 			bowtie2Options.numThreads, bowtie2Options.additionalOptions,
 			outAlignFilePath)
-	else:
+	elif bowtie2Options.singleReadFlag: # newly added
 		cmd = "%s -x %s -U %s -p %s %s -S %s" %	(btBinPath, 
 			bowtie2Options.btIndexPrefix, 
 			bowtie2Options.readFile,
