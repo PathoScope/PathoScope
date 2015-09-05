@@ -103,8 +103,14 @@ def processPathoMap(pathoMapOptions):
 	bowtie2Options.readFilePair1 = procPathoMapOptions.inReadFilePair1
 	bowtie2Options.readFilePair2 = procPathoMapOptions.inReadFilePair2
 	if (len(procPathoMapOptions.inReadFilePair1)>0 and
+		len(procPathoMapOptions.inReadFilePair2)>0 and
+		len(procPathoMapOptions.inReadFile)>0):
+		bowtie2Options.bothReadFlag = True # newly added
+	elif (len(procPathoMapOptions.inReadFilePair1)>0 and
 		len(procPathoMapOptions.inReadFilePair2)>0):
 		bowtie2Options.pairedReadFlag = True
+	elif (len(procPathoMapOptions.inReadFile)>0):
+		bowtie2Options.singleReadFlag = True # newly added
 	if procPathoMapOptions.targetAlignParameters is not None:
 		bowtie2Options.additionalOptions = procPathoMapOptions.targetAlignParameters
 	for indexPrefix in procPathoMapOptions.targetIndexPrefixes:
