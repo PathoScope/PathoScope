@@ -135,7 +135,9 @@ def processPathoMap(pathoMapOptions):
 		bowtie2Options.readFile = procPathoMapOptions.outDir + os.sep + procPathoMapOptions.exp_tag + "appendAlign.fq"
 		bowtie2Options.readFilePair1 = ""
 		bowtie2Options.readFilePair2 = ""
+		bowtie2Options.bothReadFlag = False
 		bowtie2Options.pairedReadFlag = False
+		bowtie2Options.singleReadFlag = True
 		if procPathoMapOptions.filterAlignParameters is not None:
 			bowtie2Options.additionalOptions = procPathoMapOptions.filterAlignParameters
 		bowtie2Wrap.extractRead(appendAlignFile, bowtie2Options.readFile)
