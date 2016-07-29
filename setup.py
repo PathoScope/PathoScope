@@ -12,5 +12,6 @@ setup(
             "pathoscope = pathoscope.__main__:main"
         ]
     },
-    namespace_packages=["pathoscope"]
+    namespace_packages=["pathoscope"],
+    scripts=['scripts/pathoscope'],
     )
