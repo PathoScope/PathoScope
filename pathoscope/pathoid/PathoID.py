@@ -450,7 +450,11 @@ def rewrite_align(U, NU, aliDfile, pScoreCutoff, aliFormat, outdir):
 # ===========================================================
 # Function to find the updated score after pathoscope reassignment
 def find_updated_score(NU, rIdx, gIdx):
-	index = NU[rIdx][0].index(gIdx);
+	try:
+		index = NU[rIdx][0].index(gIdx);
+	except ValueError:
+		print 'Value Error: %s' % gIdx
+		return (0., 0.)
 	pscoreSum = 0.0
 	for pscore in NU[rIdx][1]:
 		pscoreSum += pscore
