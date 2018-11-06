@@ -37,6 +37,8 @@ If you have installed the PathoQC submodule:
 1.6 Optional: Download PathoQC (pathoqc_vXXX.tar.gz) from <http://sourceforge.net/projects/pathoscope/>
     Install "pathoqc" sub-directory under "pathoscope" directory.
 
+1.7 Note: since NCBI is migrating from GI to TI taxon ids one should use the following script https://github.com/microgenomics/pasteTaxID to convert the ids prior to running the LIB command. 
+
 ####  2. Output TSV file format
 
 At the top of the file in the first row, there are two fields called "Total Number of Aligned Reads" and "Total Number of Mapped Genomes". They represent the total number of reads that are aligned and the total number of genomes to which those reads align from the given alignment file.
