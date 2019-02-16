@@ -57,6 +57,8 @@ There are also some unit tests for testing the validity of the functions.
 - Change directory to `pathoscope/pathomap/bowtie2wrapper/unittest` and simply run `python testBowtie2Wrap.py`.
 - Change directory to `pathoscope/pathoid/unittest` and simply run `python testPathoID.py`.
 
+Note: since NCBI is migrating from GI to TI taxon ids one should use the following script https://github.com/microgenomics/pasteTaxID to convert the ids prior to running the LIB command. 
+
 #### 3. PathoQC
 
 Optional: Download PathoQC (pathoqc_vXXX.tar.gz) from <http://sourceforge.net/projects/pathoscope/>
