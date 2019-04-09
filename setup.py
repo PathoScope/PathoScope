@@ -1,8 +1,9 @@
 from setuptools import setup, find_packages
+from pathoscope._version import VERSION
 
 setup(
     name="PathoScope",
-    version="2.0.6",
+    version=VERSION,
     packages=find_packages(),
     install_requires=[],
     zip_safe=False,

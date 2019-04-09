@@ -33,6 +33,7 @@ from pathoscope.patholib import pathoLib
 from pathoscope.pathomap import PathoMapA
 from pathoscope.pathoid import PathoID
 from pathoscope.pathoreport import PathoReportA
+from pathoscope._version import VERSION
 from time import time
 
 # ===========================================================
@@ -40,7 +41,7 @@ from time import time
 parser = argparse.ArgumentParser(description="Pathoscope")
 
 # create the top-level parser
-parser.add_argument('--version', action='version', version='%(prog)s 2.0.6')
+parser.add_argument('--version', action='version', version=VERSION)
 parser.add_argument('--verbose', action='store_const', dest='verbose',
 	required=False, const=True, default=False, help='Prints verbose text while running')
 subparsers = parser.add_subparsers(dest='subcommand', help='Select one of the following sub-commands')

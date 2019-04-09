@@ -28,6 +28,7 @@ sys.path.insert(0,pathoscopedir)
 
 import argparse
 from pathoscope.pathoid import PathoID
+from pathoscope._version import VERSION
 from time import time
 
 # ===========================================================
@@ -49,7 +50,7 @@ parser.add_argument('-e', action='store', default='testset', dest='exp_tag',
 					help='Experiment tag')
 parser.add_argument('-outdir', action='store', default='.', dest='outdir',
 					help='Output Directory')
-parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+parser.add_argument('--version', action='version', version=VERSION)
 parser.add_argument('-t', action='store', default='sam', dest='ali_format',
 					help='Alignment Format: sam/bl8/gnu-sam')
 parser.add_argument('-f', action='store', dest='ali_file', required=True,
