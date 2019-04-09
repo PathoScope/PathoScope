@@ -5,6 +5,7 @@ import os, sys, math, argparse
 pathoscopedir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0,pathoscopedir) 
 from pathoscope.patholib import pathoLib
+from pathoscope._version import VERSION
 
 #=================================
 #example:
@@ -22,7 +23,7 @@ parser.add_argument('-u', action='store', dest='user', required=False, default='
 parser.add_argument('-p', action='store', dest='passwd', required=False, default='johnsonlab', help='provide password associate with user')
 
 parser.add_argument('-o', action='store', dest='label', required=True, help='provide a short description (w/o any white space) of the target database you are about to build')
-parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+parser.add_argument('--version', action='version', version=VERSION)
 
 args=parser.parse_args()
 
