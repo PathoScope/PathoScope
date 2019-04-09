@@ -74,11 +74,11 @@ def conv_align2GRmat(aliDfile,pScoreCutoff,aliFormat):
 			continue
 		
 		#refId=refId.split("ti:")[-1]
-		mObj=re.search(r'ti\|(\d+)\|org\|([^|]+)\|gi',refId)
+		mObj=re.search(r'ti\|(\d+)\|org\|([^|]+)\|',refId)
 		if mObj:
 			refId = "ti|"+mObj.group(1)+"|org|"+mObj.group(2)
 		else:
-			mObj=re.search(r'ti\|(\d+)\|gi',refId)
+			mObj=re.search(r'ti\|(\d+)\|',refId)
 			if mObj and mObj.group(1)!="-1":
 				refId = "ti|"+mObj.group(1)
 
@@ -382,11 +382,11 @@ def rewrite_align(U, NU, aliDfile, pScoreCutoff, aliFormat, outdir):
 				if refId == '*':
 					continue
 
-				mObj=re.search(r'ti\|(\d+)\|org\|([^|]+)\|gi',refId)
+				mObj=re.search(r'ti\|(\d+)\|org\|([^|]+)\|',refId)
 				if mObj:
 					refId = "ti|"+mObj.group(1)+"|org|"+mObj.group(2)
 				else:
-					mObj=re.search(r'ti\|(\d+)\|gi',refId)
+					mObj=re.search(r'ti\|(\d+)\|',refId)
 					if mObj and mObj.group(1)!="-1":
 						refId = "ti|"+mObj.group(1)
 				
@@ -450,7 +450,11 @@ def rewrite_align(U, NU, aliDfile, pScoreCutoff, aliFormat, outdir):
 # ===========================================================
 # Function to find the updated score after pathoscope reassignment
 def find_updated_score(NU, rIdx, gIdx):
-	index = NU[rIdx][0].index(gIdx);
+	try:
+		index = NU[rIdx][0].index(gIdx);
+	except ValueError:
+		print 'Value Error: %s' % gIdx
+		return (0., 0.)
 	pscoreSum = 0.0
 	for pscore in NU[rIdx][1]:
 		pscoreSum += pscore

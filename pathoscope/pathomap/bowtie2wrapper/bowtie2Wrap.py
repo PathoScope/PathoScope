@@ -85,7 +85,8 @@ def create_bowtie2_index(bowtie2Options):
 	index_exist=1
 	btIndexPrefixPath = bowtie2Options.indexDir + os.sep + bowtie2Options.btIndexPrefix
 	btIndexPath = btIndexPrefixPath + ".1.bt2"
-	if os.path.exists(btIndexPath):
+	btIndexPath_large = btIndexPrefixPath + ".1.bt2l"
+	if os.path.exists(btIndexPath) or os.path.exists(btIndexPath_large):
 		if bowtie2Options.verbose:
 			print "Bowtie2 index already exist for: " + btIndexPath
 		return index_exist
