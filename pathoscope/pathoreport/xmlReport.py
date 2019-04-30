@@ -3,7 +3,7 @@
 # Classes to represent genome identification XML report
 
 #	Pathoscope2
-#	Copyright (C) 2013  Johnson Lab - Boston University
+#       Copyright (C) 2013  Johnson Lab - Boston University and Crandall Lab George Washington University
 #
 #	This program is free software: you can redistribute it and/or modify
 #	it under the terms of the GNU General Public License as published by
