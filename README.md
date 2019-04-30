@@ -122,9 +122,9 @@ Washington, DC 20052
 Developers:
 
 Solaiappan Manimaran (Johnson)  
-Changjin Hong (Johnson)
-Eduardo Castro-Nallar (Crandall)
-Matthew Bendall (Crandall)
+Changjin Hong (Johnson)  
+Eduardo Castro-Nallar (Crandall)  
+Matthew Bendall (Crandall)  
 
 ####  7. References
 
