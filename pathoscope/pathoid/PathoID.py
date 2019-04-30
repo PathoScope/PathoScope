@@ -5,7 +5,7 @@
 # output updated alignment file (sam/gnu-sam or bl8)  
 
 #	Pathoscope - Predicts strains of genomes in Nextgen seq alignment file (sam/bl8)
-#	Copyright (C) 2013  Johnson Lab - Boston University
+#       Copyright (C) 2013  Johnson Lab - Boston University and Crandall Lab George Washington University
 #
 #	This program is free software: you can redistribute it and/or modify
 #	it under the terms of the GNU General Public License as published by
