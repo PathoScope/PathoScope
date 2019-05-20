@@ -103,7 +103,7 @@ You should have received a copy of the GNU General Public License along with thi
 
 ####  6. Support and Contact
 
-Pathoscope is developed at the Johnson Lab in Boston University and the Crandall Lab at George Washington University.  
+Pathoscope is developed at the Johnson Lab at Boston University and the Crandall Lab at George Washington University.  
 
 W. Evan Johnson, Ph.D.  
 Division of Computational Biomedicine  
@@ -112,19 +112,19 @@ Boston University School of Medicine
 Boston, MA 02118  
 
 Keith A. Crandall, Ph.D.  
-Computational Biology Institute  
-George Washington University  
-800 22nd Street NW, Suite 7000D  
+Computational Biology Institute, Milken Institute School of Public Health  
+The George Washington University  
+800 22nd Street, NW, Science and Engineering Hall, Suite 7000  
 Washington, DC 20052  
 
 
-
-Developers:
+###### Developers:
 
 Solaiappan Manimaran (Johnson)  
 Changjin Hong (Johnson)  
 Eduardo Castro-Nallar (Crandall)  
 Matthew Bendall (Crandall)  
+
 
 ####  7. References
 
